@@ -76,4 +76,30 @@ For this experiment the Data Source will be [Amazon S3](https://aws.amazon.com/s
 * Ensure that you have a working Amazon SageMaker Studio environment and that it has been updated. If you do not, follow the instructions [here](https://catalog.us-east-1.prod.workshops.aws/workshops/f560a788-af64-4e5a-a02c-a6c88516ab02/en-US/introduction/setup-sagemaker).
 * Open an Amazon SageMaker Studio terminal to import the datasets and notebook into Amazon SageMaker Studio
     * Select **File / New / Terminal** from the menu at the top of Amazon SageMaker Studio.
-    ![image](./img/dl_image-1.png)
+    ![image](./img/dl-image-1.png)
+* Next, download the dataset to SageMaker Studio notebook using the commands below.
+    * Start with the downloaded [explore-dataset.ipynb](https://github.com/melanie531/LCNC-media-workshop-temp/blob/main/explore_data.ipynb) SageMaker Studio notebook.
+        * Explore the dataset locally by running the cells in the notebook.
+        * Upload the datasets (CSV files) to an S3 location for consumption by SageMaker Data Wrangler later.
+        * Copy the S3 URLs of the tracks and ratings data files to your clipboard. We will use these URLs later to import these part files into Data Wrangler and join them.
+    * Let's run though each of the steps above.
+* From the terminal run the following commands:
+* **TODO** fill the commands to download the workshop contents
+
+* Notice the file explorer on the right has been updated with a new folder called lcnc. Double click on the folder and double click on the folder music.
+* Double click on the file called explore-data.ipynb. Amazon SageMaker may prompt you to select a kernel and image. If it does select Data Science as the image and Python 3 as the Kernel, as shown here:
+![image](./img/dl-image-3.png)
+
+* You have now successfully downloaded the data and opened a notebook, we will now upload the data to your S3 bucket. Note: An Amazon S3 bucket was created for you when the Amazon SageMaker Studio environment was started.
+![image](./img/dl-image-4.png)
+
+* From the menu select **Run / Run All Cells** to execute all the cells in the notebook.
+![image](./img/dl-image-5.png)
+
+* Examine the results, as you can see the samples of the data are printed to the screen.
+![image](./img/dl-image-6.png)
+
+* The data structure is defined in the next section. However, before we continue, note the path to the various datasets. Your paths will be different to the ones in the image below. Please copy these paths as you will use them later. An example of a path is s3://sagemaker-eu-west-1-112233445566/music-recommendation-workshop/input/tracks.csv
+![image](./img/dl-image-7.png)
+
+In the next section we will import the datasets into Data Wrangler via the SageMaker Studio User Interface (UI).
