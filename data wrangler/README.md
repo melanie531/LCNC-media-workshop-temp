@@ -114,12 +114,15 @@ df = df.filter(F.col('Rating')==5).groupBy('userId').agg(*agg_obj)
         * *sessionId*
         * *itemInSession*
         * *ratingEventId*
+        
     ![image](./img/image-27.png)
     
     * we can drop multiple columns by selecting each column from the drop down manual.
+    
     ![image](./img/image-28.png)
     
     * Once all the columns are selected, hit **Preview** first and then **Add**. 
+    
     ![image](./img/image-29.png)
     
     * Now go back to data flow.
@@ -134,6 +137,19 @@ df = df.filter(F.col('Rating')==5).groupBy('userId').agg(*agg_obj)
     ![image](./img/image-33.png)
     * Preview and Add this step to the flow file. When we go back to the data flow, this is how the flow looks like now.
     ![image](./img/image-34.png)
+    * After joining the two data source, we also want to drop the *userId* columns and move the target column *Rating* to the first column. 
+    * Similar to the previous manage columns transform instructions, we add two transform steps to drop the *userId_0* and *userId_1* columns, and then move the *Rating* step to the start of the table.
+    
+    ![image](./img/image-35.png)
+    ![image](./img/image-36.png)
+
+* Once all the transform steps are finished, we will export the transformed data. SageMaker Data Wrangler also allow you to split your dataset into train and test based on the ratio you set.
+    * To split the dataset, add another transform step and choose **Split data**.
+    ![image](./img/image-37.png)
+    * We choose *Randomized split* and get 80% for training and 20% data for testing.
+    ![image](./img/image-38.png)
+    * The data flow now looks as below:
+    ![image](./img/image-39.png)
     
 
 ## Export transformed features to S3 (will be consumed by SageMaker Autopilot)
@@ -143,19 +159,28 @@ df = df.filter(F.col('Rating')==5).groupBy('userId').agg(*agg_obj)
 
 * A new window is opened, Click Export data, choose the S3 location where you want to save the transformed dataset.
 ![image](./img/image-41.png)
+* Follow the same step to set the S3 location for the test data.
+
 * A job is needed to export the data to Amazon S3, to do this press the Create Job button on the top right, this will open a window.
 
 * Set the Job name to something like generate-train-test-data
+
 ![image](./img/image-42.png)
 
 * Hit the **Configure Job** button at the bottom
 
 * Leave the default instance type, and press the Run button at the bottom.
+
 ![image](./img/image-43.png)
+
 * Note that your job has been created successfully and if you want to see the progress of the job you can do so by following the link to the generate-train-test-data process.
+
 ![image](./img/image-44.png)
+
 * Follow the link to see the status of your job.
+
 ![image](./img/image-45.png)
+
 * When the job is complete a new file will be available in your S3 bucket in the output folder.
 
 ### *Other ways to export the transformations and analysis*
@@ -173,7 +198,16 @@ df = df.filter(F.col('Rating')==5).groupBy('userId').agg(*agg_obj)
     * Export to SageMaker Feature Store as a notebook.
 
 ### *Run Autopilot training directly from Data Wrangler flow*
-![image](./img/image-47.png)
-![image](./img/image-48.png)
-![image](./img/image-49.png)
-![image](./img/image-50.png)
+* SageMaker Data Wragler now allow you to directly run an [Autopilot](https://docs.aws.amazon.com/sagemaker/latest/dg/autopilot-automate-model-development.html) job to automatically train a model. 
+    * To set up a SageMaker Autopilot job, click the train data block, select **Train model**.
+    ![image](./img/image-47.png)
+    * On the new window, select the S3 location you want the training dataset and the Autopilot job output to be saved.
+    ![image](./img/image-48.png)
+    * Select **Export and train**. This will take about one minute to export the train data to S3.
+    ![image](./img/image-49.png)
+    * When data exported successfully, we can configure the Autopilot job. Select the *Target* training column (Rating).
+    ![image](./img/image-50.png)
+    * Under the **Advanced settings**, choose the machine learning problem type as *Regression*. By default, SageMaker autopilot will run 250 training jobs to find the best model, this will take a few hours for the job to finish. To reduce runtime, you can set the *Max candidates* to a smaller number.
+    ![image](./img/image-51.png)
+    * After click **Create Experiment**, an autopilot job will be started. You can come back to SageMaker Studio later to check the job output.
+    ![image](./img/image-52.png)
