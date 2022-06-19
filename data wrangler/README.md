@@ -197,7 +197,7 @@ df = df.filter(F.col('Rating')==5).groupBy('userId').agg(*agg_obj)
     * Export as a Python script.
     * Export to SageMaker Feature Store as a notebook.
 
-### *Run Autopilot training directly from Data Wrangler flow*
+### *Run Autopilot training directly from Data Wrangler flow* (**Optional**)
 * SageMaker Data Wragler now allow you to directly run an [Autopilot](https://docs.aws.amazon.com/sagemaker/latest/dg/autopilot-automate-model-development.html) job to automatically train a model. 
     * To set up a SageMaker Autopilot job, click the train data block, select **Train model**.
     ![image](./img/image-47.png)
