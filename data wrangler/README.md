@@ -91,7 +91,7 @@
     ![image](./img/image-24.png)
     * Give a name to this custom transform step and copy and paste below custom script to the window.
     
-    ```python
+<code>
 # Table is available as variable `df`
 import pyspark.sql.functions as F
 # numeric features
@@ -99,7 +99,8 @@ num_feat_cols = ['energy', 'acousticness', 'valence', 'speechiness', 'instrument
 # calculate averages for 5-star ratings
 agg_obj = [F.avg(feat_col).alias(feat_col+"_5star") for feat_col in num_feat_cols]
 df = df.filter(F.col('Rating')==5).groupBy('userId').agg(*agg_obj)
-```
+</code>
+* 
     ![image](./img/image-25.png)
     * Click *Preview* and the *Add* this step to the flow.
     
