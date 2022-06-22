@@ -55,7 +55,7 @@ For this workshop, we'll be using our own generated track and user ratings data,
 
 ## Pre-requisites:
 
-  * We need to ensure dataset (loan default prediction) for ML is uploaded to a data source. 
+  * We need to ensure dataset (tracks and ratings dataset) for ML is uploaded to a data source. 
   * Data source can be any one of the following options:
        * S3
        * Athena
